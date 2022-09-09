@@ -1,6 +1,16 @@
 import React from "react";
-import HelloWorld from "components/HelloWorld";
 
-const App: React.FC = () => <HelloWorld />;
+// Style
+import "./App.css";
+
+const App: React.FC = () => {
+  return (
+    <div className="App">
+      <div className="container">
+        <header className="pokemon-header">Pokemon</header>
+      </div>
+    </div>
+  );
+};
 
 export default App;

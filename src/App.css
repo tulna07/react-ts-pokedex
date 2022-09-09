@@ -1,0 +1,43 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    overflow-y: visible;
+    overflow-x: hidden;
+    font-size: 1.15rem;
+    font-family: "Montserrat", sans-serif;
+    background-color: #3d405b;
+}
+
+.container {
+    margin: 1rem 2rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container-overlay {
+    margin: 0rem;
+    background-color: black;
+    height: 100vh;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pokemon-header {
+    text-align: center;
+    font-size: 2.5rem;
+    letter-spacing: 0.25rem;
+    font-weight: 600;
+    color: #81b29a;
+}
