@@ -5,15 +5,10 @@ import axios from "axios";
 // Style
 import "./App.css";
 import { useEffect } from "react";
+import PokemonCollection from "./components/PokemonCollection";
 
-interface Pokemon {
-  id?: number;
-  url?: string;
-  name: string;
-  sprites?: {
-    front_default: string;
-  };
-}
+// Interfaces
+import { Pokemon } from "./interface";
 
 const App: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -31,12 +26,14 @@ const App: React.FC = () => {
         setPokemons([...pokemons, poke.data]);
       });
     };
+    getPokemon();
   });
 
   return (
     <div className="App">
       <div className="container">
         <header className="pokemon-header">Pokemon</header>
+        <PokemonCollection pokemons={pokemons} />
       </div>
     </div>
   );
