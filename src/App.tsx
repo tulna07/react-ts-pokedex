@@ -16,18 +16,20 @@ const App: React.FC = () => {
   useEffect(() => {
     const getPokemon = async () => {
       const res = await axios(
-        "https://pokeapi.co/api/v2/pokemon?limit=20&offset=20"
+        "https://pokeapi.co/api/v2/pokemon?limit=10&offset=20"
       );
 
       res.data.results.forEach(async (pokemon: Pokemon) => {
         const poke = await axios(
           `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
         );
-        setPokemons([...pokemons, poke.data]);
+        setPokemons(p => [...p, poke.data]);
       });
     };
     getPokemon();
-  });
+  }, []);
+
+  console.log(pokemons);
 
   return (
     <div className="App">
