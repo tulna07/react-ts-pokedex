@@ -8,12 +8,13 @@ import { useEffect } from "react";
 import PokemonCollection from "./components/PokemonCollection";
 
 // Interfaces
-import { Pokemon } from "./interface";
+import { Pokemon, Details } from "./interface";
 
 const App: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [nextUrl, setNextUrl] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
+  const [details, setDetails] = useState<Details>({ id: 0, isOpen: false });
 
   useEffect(() => {
     const getPokemon = async () => {
@@ -54,12 +55,18 @@ const App: React.FC = () => {
     <div className="App">
       <div className="container">
         <header className="pokemon-header">Pokemon</header>
-        <PokemonCollection pokemons={pokemons} />
-        <div className="btn">
-          <button onClick={handleLoadMore}>
-            {loading ? "Loading ..." : "Load More"}
-          </button>
-        </div>
+        <PokemonCollection
+          pokemons={pokemons}
+          details={details}
+          setDetails={setDetails}
+        />
+        {!details.isOpen && (
+          <div className="btn">
+            <button onClick={handleLoadMore}>
+              {loading ? "Loading ..." : "Load More"}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
