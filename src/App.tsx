@@ -12,30 +12,54 @@ import { Pokemon } from "./interface";
 
 const App: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [nextUrl, setNextUrl] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getPokemon = async () => {
       const res = await axios(
         "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0"
       );
+      setNextUrl(res.data.next);
 
       res.data.results.forEach(async (pokemon: Pokemon) => {
         const poke = await axios(
           `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
         );
         setPokemons(p => [...p, poke.data]);
+        setLoading(false);
       });
     };
     getPokemon();
   }, []);
 
-  console.log(pokemons);
+  const handleLoadMore = async () => {
+    const getPokemon = async () => {
+      setLoading(true);
+      const res = await axios(nextUrl);
+      setNextUrl(res.data.next);
+
+      res.data.results.forEach(async (pokemon: Pokemon) => {
+        const poke = await axios(
+          `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
+        );
+        setPokemons(p => [...p, poke.data]);
+        setLoading(false);
+      });
+    };
+    getPokemon();
+  };
 
   return (
     <div className="App">
       <div className="container">
         <header className="pokemon-header">Pokemon</header>
         <PokemonCollection pokemons={pokemons} />
+        <div className="btn">
+          <button onClick={handleLoadMore}>
+            {loading ? "Loading ..." : "Load More"}
+          </button>
+        </div>
       </div>
     </div>
   );
