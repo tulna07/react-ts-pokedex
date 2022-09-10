@@ -16,7 +16,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const getPokemon = async () => {
       const res = await axios(
-        "https://pokeapi.co/api/v2/pokemon?limit=10&offset=20"
+        "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0"
       );
 
       res.data.results.forEach(async (pokemon: Pokemon) => {
